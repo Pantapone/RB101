@@ -51,6 +51,9 @@ loop do
   prompt("What operation would you like to perform on these numbers? (Addition, Subtraction, Multiplication, Division)")
   operation = Kernel.gets().chomp().to_s().downcase()
 
+  loop do 
+    operation = Kernel.gets().chomp()
+
 
   result =  case operation
             when "addition"
