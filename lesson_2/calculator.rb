@@ -4,11 +4,11 @@
 # output the result
 
 def prompt(message)
-    Kernel.puts("=> #{message}")
+  Kernel.puts("=> #{message}")
 end
 
 def valid_number?(num)
-num.to_i != 0
+  num.to_i != 0
 end
 
 def operation_to_message(op)
@@ -24,44 +24,42 @@ def operation_to_message(op)
   end
 end
 
-
 prompt("Welcome to your Calculator! Enter your name:")
 
 name = ''
-loop do 
+loop do
   name = Kernel.gets().chomp().capitalize!
   if name.empty?()
     prompt("That is not a valid name.")
   else
-   break
+    break
   end
 end
 
 prompt("Welcome #{name}!")
 
-loop do 
-  number_1 = ''
-  loop do 
+loop do
+  number1 = ''
+  loop do
     prompt("Please give me your first number")
-    number_1 = Kernel.gets().chomp()
-    if valid_number?(number_1)
+    number1 = Kernel.gets().chomp()
+    if valid_number?(number1)
       break
     else
       prompt("That is not a valid number.")
     end
-  end 
+  end
 
-  number_2 = ''
-  loop do 
+  number2 = ''
+  loop do
     prompt("Please give me your second number")
-    number_2 = Kernel.gets().chomp()
-    if valid_number?(number_2)
+    number2 = Kernel.gets().chomp()
+    if valid_number?(number2)
       break
     else
       prompt("That is not a valid number.")
     end
-  end 
-
+  end
 
   operator_prompt = <<-MSG
       What operation would you like to perform?
@@ -72,13 +70,12 @@ loop do
   MSG
 
   prompt(operator_prompt)
- 
-operation = ''
-  loop do 
+  operation = ''
+  loop do
     operation = Kernel.gets().chomp()
     if %w(1 2 3 4).include?(operation)
       break
-    else 
+    else
       prompt("Must choose 1, 2, 3 or 4.")
     end
   end
@@ -87,19 +84,17 @@ operation = ''
 
   result =  case operation
             when '1'
-              number_1.to_i() + number_2.to_i()
+              number1.to_i() + number2.to_i()
             when '2'
-              number_1.to_i() - number_2.to_i()
+              number1.to_i() - number2.to_i()
             when '3'
-              number_1.to_i() * number_2.to_i() 
+              number1.to_i() * number2.to_i()
             when '4'
-              number_1.to_f() / number_2.to_f()
+              number1.to_f() / number2.to_f()
             else
               prompt("That is not a valid operation.")
             end
-
-  prompt("The result is #{result}.") 
-  
+  prompt("The result is #{result}.")
   prompt("Do you want to perform another calculation? (Y to calculate again)")
   answer = Kernel.gets().chomp()
   break unless answer.downcase().start_with?('y')
