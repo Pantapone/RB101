@@ -11,6 +11,20 @@ def valid_number?(num)
 num.to_i != 0
 end
 
+def operation_to_message(op)
+  case op
+  when '1'
+    'Adding'
+  when '2'
+    'Subtracting'
+  when '3'
+    'Multiplying'
+  when '4'
+    'Dividing'
+  end
+end
+
+
 prompt("Welcome to your Calculator! Enter your name:")
 
 name = ''
@@ -48,21 +62,37 @@ loop do
     end
   end 
 
-  prompt("What operation would you like to perform on these numbers? (Addition, Subtraction, Multiplication, Division)")
-  operation = Kernel.gets().chomp().to_s().downcase()
 
+  operator_prompt = <<-MSG
+      What operation would you like to perform?
+      1) Addition
+      2) Subtraction
+      3) Multiplication
+      4) Division
+  MSG
+
+  prompt(operator_prompt)
+ 
+operation = ''
   loop do 
     operation = Kernel.gets().chomp()
+    if %w(1 2 3 4).include?(operation)
+      break
+    else 
+      prompt("Must choose 1, 2, 3 or 4.")
+    end
+  end
 
+  prompt("#{operation_to_message(operation)} the two numbers...")
 
   result =  case operation
-            when "addition"
+            when '1'
               number_1.to_i() + number_2.to_i()
-            when "subtraction"
+            when '2'
               number_1.to_i() - number_2.to_i()
-            when operation == "multiplication"
+            when '3'
               number_1.to_i() * number_2.to_i() 
-            when "division"
+            when '4'
               number_1.to_f() / number_2.to_f()
             else
               prompt("That is not a valid operation.")
