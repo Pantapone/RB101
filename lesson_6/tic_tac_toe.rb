@@ -5,24 +5,26 @@ Rough Description of the Game
 * 2 players
 * 1 player gets circles, while the other player uses crosses as a symbol
 * each has one action per turn
-* can select from 
+* can select from
 * the game has a graphical representation of 9 fields, ordered as 3 x 3
-* each player marks with his/her symbol one of these fields (which can't be reused)
+* each player marks with his/her symbol one of these fields
+(which can't be reused)
 * a player wins if he/she has three of their symbols in one row (or diagonal)
 * if all fields are used but none of the players has three in a row, nobody wins
-
 
 Outline (my own! a bit different to walk-through)
 --------
 0) welcome Player ...
 1) Display empty game board (3x3 -> total of 9 fields)
-2) One player chooses their symbol (circle/cross); the other player automatically gets the other symbol
+2) One player chooses their symbol (circle/cross);
+the other player automatically gets the other symbol
 3) Have a random algorithm which decides which player starts
 4) Ask the first player to choose their field to mark
 5) Update the board display
 6) Ask the second player to choose / let the computer choose
 7) Update the board display
-8) Loop until there's a winner (winner if three in a row); stop if no fields available anymore
+8) Loop until there's a winner (winner if three in a row);
+stop if no fields available anymore
 9) if there is a winner -> display winner; otherwise -> display "It's a tie"
 10) Ask player: "Another round?"
 11) if yes -> go to 1)
@@ -33,17 +35,18 @@ Outline (my own! a bit different to walk-through)
 # ** Walk-through: Tic Tac Toe **
 require "pry"
 
-
 INITIAL_MARKER = ' '
 PLAYER_MARKER = 'X'
 COMPUTER_MARKER = '0'
-
+WINNING_LINES = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] + # rows
+                [[1, 4, 7], [2, 5, 8], [3, 6, 9]] + # cols
+                [[1, 5, 9], [3, 5, 7]] # diagonals
 
 def prompt(string)
   puts "=> #{string}"
 end
 
-
+# rubocop:disable Metrics/AbcSize
 def display_board(brd)
   system "clear"
   puts "You are #{PLAYER_MARKER}. Computer is #{COMPUTER_MARKER}."
@@ -61,15 +64,16 @@ def display_board(brd)
   puts "     |     |     "
   puts ""
 end
+# rubocop:enable Metrics/AbcSize
 
 def initialize_board
   new_board = {}
-  (1..9).each {|num| new_board[num] = INITIAL_MARKER}
+  (1..9).each { |num| new_board[num] = INITIAL_MARKER }
   new_board
 end
 
 def empty_squares(brd)
-  brd.keys.select{|num| brd[num] == INITIAL_MARKER}
+  brd.keys.select { |num| brd[num] == INITIAL_MARKER }
 end
 
 def player_places_piece!(brd)
@@ -97,31 +101,23 @@ def someone_won?(brd)
 end
 
 def detect_winner(brd)
-  winning_lines = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] + #rows
-                  [[1, 4, 7], [2, 5, 8], [3, 6, 9]] + #cols
-                  [[1, 5, 9], [3, 5, 7]] #diagonals
-  winning_lines.each do |line|
-    if brd[line[0]] == PLAYER_MARKER && 
-       brd[line[1]] == PLAYER_MARKER && 
-       brd[line[2]] == PLAYER_MARKER
-       return 'Player'
-    elsif brd[line[0]] == COMPUTER_MARKER && 
-          brd[line[1]] == COMPUTER_MARKER && 
-          brd[line[2]] == COMPUTER_MARKER
-      return "Computer"
+  WINNING_LINES.each do |line|
+    if brd.values_at(*line.count(PLAYER_MARKER)) == 3
+      return 'Player'
+    elsif brd.values_at(*line.count(COMPUTER_MARKER)) == 3
+      return 'Computer'
     end
   end
   nil
 end
 
 loop do
-
   board = initialize_board
   display_board(board)
 
   loop do
     display_board(board)
-    player_places_piece!(board)  
+    player_places_piece!(board)
     break if someone_won?(board) || board_full?(board)
 
     computer_places_piece!(board)
@@ -135,11 +131,9 @@ loop do
     prompt "It's a tie!"
   end
 
-  prompt ("Play again? (y or n)")
+  prompt("Play again? (y or n)")
   answer = gets.chomp
   break unless answer.downcase.start_with?('y')
 end
 
 prompt("Thank you for playing!")
-
-
