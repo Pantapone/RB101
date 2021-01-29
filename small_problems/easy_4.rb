@@ -1,5 +1,5 @@
 #1
-
+=begin
 def short_long_short(str1, str2)
   str1.length > str2.length ? str2 + str1 + str2 : str1 + str2 + str1
 end
@@ -151,9 +151,16 @@ p string_to_signed_integer('4321') == 4321
 p string_to_signed_integer('-570') == -570
 p string_to_signed_integer('+100') == 100
 
-
+=end
 
 #9
+
+DIGITS = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+
+def integer_to_string(int)
+  
+end
+
 
 
 #10
