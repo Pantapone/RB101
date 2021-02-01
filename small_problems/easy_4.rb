@@ -154,13 +154,50 @@ p string_to_signed_integer('+100') == 100
 =end
 
 #9
+# input: integer
+# output: string
+# algo: int / int.size
 
-DIGITS = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+DIGITS = {
+  0 => "0",
+  1 => "1",
+  2 => "2",
+  3 => "3",
+  4 => "4",
+  5 => "5",
+  6 => "6",
+  7 => "7",
+  8 => "8",
+  9 => "9"
+
+}
 
 def integer_to_string(int)
-  
+  result = []
+  arr = int.digits
+  arr.reverse.each do |i|
+    result << DIGITS[i]
+  end
+  result.join
 end
 
+p integer_to_string(4321) == '4321'
+p integer_to_string(0) == '0'
+p integer_to_string(5000) == '5000' 
 
 
 #10
+def signed_integer_to_string(int)
+  if (int <=> 0) == -1
+    "-#{integer_to_string(-int)}"
+  elsif (int <=> 0) == +1
+    "+#{integer_to_string(int)}"
+  else
+    integer_to_string(int)
+  end
+end
+
+
+signed_integer_to_string(4321) == '+4321'
+signed_integer_to_string(-123) == '-123'
+signed_integer_to_string(0) == '0'

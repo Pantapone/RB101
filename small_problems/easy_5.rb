@@ -106,15 +106,7 @@ hour = hour.join.to_s
 
 puts "#{hour}:#{minutes}"
 
-=end
 
-
-
-
-
-
-
- 
 
 
 
@@ -123,7 +115,27 @@ puts "#{hour}:#{minutes}"
 #3
 
 #4
+#input: string
+#output: string, but first and last letter are swapped
+#idea: convert into array of characters, ues array index access to swap 0 and 1 and -size with -size + 1with each other, join characters together 
 
+require "pry"
+
+def swap_word(string)
+  string[0], string[-1] = string[-1], string[0]
+  string
+end
+
+def swap(string)
+  result = string.split.map do |word|
+
+end
+
+p swap('Oh what a wonderful day it is') == 'hO thaw a londerfuw yad ti si'
+p swap('Abcde') == 'ebcdA'
+p swap('a') == 'a'
+
+=end
 
 #5
 
@@ -138,3 +150,17 @@ puts "#{hour}:#{minutes}"
 #10
 
 #11
+
+require "pry"
+
+=begin
+
+Input: array of words, some can occur more then once
+Output: hash, where the words of the arary are the keys, and the number of times it came up, the value
+
+Problem:
+- count the number of times a word comes up in an array of words
+- # count method on array
+
+=end
+
