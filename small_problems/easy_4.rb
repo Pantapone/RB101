@@ -197,7 +197,6 @@ def signed_integer_to_string(int)
   end
 end
 
-
 signed_integer_to_string(4321) == '+4321'
 signed_integer_to_string(-123) == '-123'
 signed_integer_to_string(0) == '0'
